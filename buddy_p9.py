@@ -401,13 +401,17 @@ def deep_recall(query):
 if __name__ == "__main__":
     print("🧠 Sov Buddy v5.2 fully operational — memory locked, recursion stable")
 
-    router = CloneRouter()
+    from clone_router import CloneRouter  # ✅ Ensure this is imported near the top
 
-    flask_enabled = True  # ✅ Ensure this is true for Render to bind port
+    router = CloneRouter()
+    flask_enabled = True  # ✅ Switch False for CLI mode
 
     if flask_enabled:
         print("🌐 Flask server live on port 5000")
-        app.run(host="0.0.0.0", port=5000)
+        try:
+            app.run(host="0.0.0.0", port=5000)
+        except Exception as e:
+            print(f"❌ Flask server failed: {e}")
     else:
         print("⌨️ CLI input mode enabled (manual typing or future mic loop)")
         try:
