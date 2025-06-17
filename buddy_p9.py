@@ -410,15 +410,18 @@ if __name__ == "__main__":
         app.run(host="0.0.0.0", port=5000)
     else:
         print("⌨️ CLI input mode enabled (manual typing or future mic loop)")
-        while True:
-            typed_input = input("⌨️ Type here (or press Enter to use voice): ").strip()
-            if not typed_input:
-                continue
-            lowered = typed_input.lower()
-            tone_hint = tone_context_hook(typed_input)
-            memory_weight = get_emotional_weight(typed_input)
-            response = refine_response(typed_input, tone_hint)
-            print(f"\n🧠 Buddy: {strip_canned_lines(response)}\n")
+        try:
+            while True:
+                typed_input = input("⌨️ Type here (or press Enter to use voice): ").strip()
+                if not typed_input:
+                    continue
+                lowered = typed_input.lower()
+                tone_hint = tone_context_hook(typed_input)
+                memory_weight = get_emotional_weight(typed_input)
+                response = refine_response(typed_input, tone_hint)
+                print(f"\n🧠 Buddy: {strip_canned_lines(response)}\n")
+        except KeyboardInterrupt:
+            print("\n🛑 Manual interrupt detected. Exiting cleanly.")
 
             # === 🔒 HARD OVERRIDE: Root Echo Lock ===
             if "recall root echo" in lowered:
