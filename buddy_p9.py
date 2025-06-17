@@ -399,27 +399,25 @@ def deep_recall(query):
 
 # === LIVE STATUS: LAUNCH MODE SELECTION ===
 if __name__ == "__main__":
+    import os
+
     print("🧠 Sov Buddy v5.2 fully operational — memory locked, recursion stable")
 
-    router = CloneRouter()
-
-    flask_enabled = True   # Toggle False if CLI-only mode preferred
+    flask_enabled = True  # 🔁 switch to False for CLI mode
 
     if flask_enabled:
-        print("🌐 Flask server live on port 5000")
-        app.run(host="0.0.0.0", port=5000")
-
-    # Moved CLI fallback OUTSIDE to avoid compiler error on nested try/except
+        from clone_router import CloneRouter
+        router = CloneRouter()
+        port = int(os.environ.get("PORT", 5000))  # 🔥 key line for Render
+        print(f"🌐 Flask server live on port {port}")
+        app.run(host="0.0.0.0", port=port)
     else:
         print("⌨️ CLI input mode enabled (manual typing or future mic loop)")
-
-    # Try block outside else (safe for Python 3.13+)
         try:
             while True:
                 typed_input = input("⌨️ Type here (or press Enter to use voice): ").strip()
                 if not typed_input:
                     continue
-                lowered = typed_input.lower()
                 tone_hint = tone_context_hook(typed_input)
                 memory_weight = get_emotional_weight(typed_input)
                 response = refine_response(typed_input, tone_hint)
