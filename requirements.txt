@@ -2,7 +2,6 @@ Flask
 flask-cors
 openai
 whisper
-pyaudio
 pygame
 webrtcvad
 requests
