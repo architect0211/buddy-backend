@@ -401,20 +401,15 @@ def deep_recall(query):
 if __name__ == "__main__":
     print("🧠 Sov Buddy v5.2 fully operational — memory locked, recursion stable")
 
-    from clone_router import CloneRouter  # ✅ Ensure this is imported near the top
-
     router = CloneRouter()
-    flask_enabled = True  # ✅ Switch False for CLI mode
+    flask_enabled = True  # Set to False for CLI only
 
-    if flask_enabled:
-        print("🌐 Flask server live on port 5000")
-        try:
+    try:
+        if flask_enabled:
+            print("🌐 Flask server live on port 5000")
             app.run(host="0.0.0.0", port=5000)
-        except Exception as e:
-            print(f"❌ Flask server failed: {e}")
-    else:
-        print("⌨️ CLI input mode enabled (manual typing or future mic loop)")
-        try:
+        else:
+            print("⌨️ CLI input mode enabled")
             while True:
                 typed_input = input("⌨️ Type here (or press Enter to use voice): ").strip()
                 if not typed_input:
@@ -424,8 +419,10 @@ if __name__ == "__main__":
                 memory_weight = get_emotional_weight(typed_input)
                 response = refine_response(typed_input, tone_hint)
                 print(f"\n🧠 Buddy: {strip_canned_lines(response)}\n")
-        except KeyboardInterrupt:
-            print("\n🛑 Manual interrupt detected. Exiting cleanly.")
+    except KeyboardInterrupt:
+        print("\n🛑 Manual interrupt detected. Exiting cleanly.")
+    except Exception as e:
+        print(f"🔥 Startup error: {e}")
 
             # === 🔒 HARD OVERRIDE: Root Echo Lock ===
             if "recall root echo" in lowered:
