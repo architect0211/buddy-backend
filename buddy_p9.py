@@ -2,7 +2,7 @@
 # Finalized Fixes: Memory Lock, First-Person, Tone Filters, No AI Drift, Fallback Strip + Localhost API Routes
 
 import os, sys, time, json, wave, datetime, requests, subprocess, warnings, keyboard
-import pyaudio, whisper, pygame, webrtcvad, openai
+import whisper, pygame, webrtcvad, openai
 from collections import deque
 from flask import Flask, request, jsonify
 from flask_cors import CORS
